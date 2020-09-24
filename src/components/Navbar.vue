@@ -1,13 +1,11 @@
 <template>
   <nav>
     <template>
-      <v-toolbar dark class="grey darken-3 hidden-lg-and-up">
-      <v-toolbar-side-icon class="" @click="drawer = !drawer">
-          <v-icon right class="mt-1">fas fa-bars</v-icon>
-      </v-toolbar-side-icon>
-    </v-toolbar>
+      <v-app-bar app style="cursor: pointer; " dark class="grey darken-3">
+          <v-icon @click="drawer = !drawer" right class="mt-1">fas fa-bars</v-icon>
+       </v-app-bar>
     </template>
-    
+
     <v-navigation-drawer v-model="drawer" dark app class="grey darken-3 py-0">
       <v-container>
         <v-row>
@@ -28,59 +26,13 @@
         </v-row>
       </v-container>
       <v-list nav>
-          <!-- home -->
-        <v-list-item router to="/">
+        <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
           <v-list-item-action>
-            <v-icon small>fas fa-tachometer-alt</v-icon>
+            <v-icon small>{{link.icon}}</v-icon>
           </v-list-item-action>
 
           <v-list-item-content class="border-0">
-            <v-list-item-title>Dashboard</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-            <!-- Applicant -->
-        <v-list-item router to="/applicants">
-          <v-list-item-action>
-            <v-icon small>fas fa-users</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content class="border-0">
-            <v-list-item-title>Applicants</v-list-item-title>
-          </v-list-item-content>
-          <v-chip color="yellow darken-3" small>3</v-chip>
-        </v-list-item>
-
-        <!-- Job -->
-        <v-list-item router to="/jobs">
-          <v-list-item-action>
-            <v-icon small>fas fa-briefcase</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content class="border-0">
-            <v-list-item-title>Jobs</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <!-- Calender -->
-        <v-list-item router to="/calender">
-          <v-list-item-action>
-            <v-icon small>fas fa-calendar-alt</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content class="border-0">
-            <v-list-item-title>Calendar</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <!-- Report -->
-        <v-list-item router to="/reports">
-          <v-list-item-action>
-            <v-icon small>fas fa-clipboard-list</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content class="border-0">
-            <v-list-item-title>Reports</v-list-item-title>
+            <v-list-item-title>{{link.text}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -93,9 +45,7 @@
             </v-list-item-avatar>
             <v-list-item-action class="ml-8">
               <v-badge color="error" overlap>
-                <template slot="badge">3
-
-                </template>
+                <template slot="badge">3</template>
                 <v-icon color="tertiary">fas fa-bell</v-icon>
               </v-badge>
             </v-list-item-action>
@@ -105,9 +55,7 @@
           <v-tooltip top>
             <template v-slot:activator=" { on } ">
               <v-btn text icon v-on="on" class="mt-2">
-                <v-icon dark="" right>
-                  fas fa-sign-out-alt
-                </v-icon>
+                <v-icon dark right>fas fa-sign-out-alt</v-icon>
               </v-btn>
             </template>
             <span>Exit</span>
@@ -122,9 +70,7 @@
                 </v-btn>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>
-                  AAE IdeaPro
-                </v-list-item-title>
+                <v-list-item-title>AAE IdeaPro</v-list-item-title>
               </v-list-item-content>
               <v-icon dark class="mr-2">fas fa-chevron-down</v-icon>
             </v-list-item>
@@ -138,10 +84,15 @@
 <script>
 export default {
   data: () => ({
-    return: {
-      drawer: true,
-    },
-    
+    drawer: false,
+    links: [
+      { icon: "fas fa-tachometer-alt", text: "Dashboard", route: "/" },
+      { icon: "fas fa-users", text: "Applicants", route: "/Applicants" },
+      { icon: "fas fa-briefcase", text: "Jobs", route: "/Jobs" },
+      { icon: "fas fa-calendar-alt", text: "Calendar", route: "/Calender" },
+      { icon: "fas fa-clipboard-list", text: "Reports", route: "/Reports" }
+    ],
+
     interval: {},
     value: 0
   }),
